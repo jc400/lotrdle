@@ -354,37 +354,40 @@ function handle_submit() {
     draw_word_submit(gamestate)
 
     // handle gameover conditions
-    if (gamestate.guess === gamestate.word) {
+    if (gamestate.guess === gamestate.word || current_guess_idx >= 5) {
         let msg;
-        switch (current_guess_idx) {
-            case 0: 
-                msg = "Hmm"; break;
-            case 1:
-            case 2:
-                msg = "Very good"; break;
-            case 3:
-            case 4:
-                msg = "Nicely done"; break;
-            case 5:
-                msg = "Whew!"; break;
-            default:
-                msg = "Hmmmmmmm";
+        gamestate.gameover = true;
+
+        // won
+        if (gamestate.guess === gamestate.word) {
+            gamestate.won = true;
+            switch (current_guess_idx) {
+                case 0: 
+                    msg = "Hmm"; break;
+                case 1:
+                case 2:
+                    msg = "Very good"; break;
+                case 3:
+                case 4:
+                    msg = "Nicely done"; break;
+                case 5:
+                    msg = "Whew!"; break;
+                default:
+                    msg = "Hmmmmmmm";
+            }
+        // lost
+        } else {
+            gamestate.won = false;
+            msg = "Damn better luck next time"
         }
-        gamestate.gameover = true;
-        gamestate.won = true;
+ 
+        // display message, then show stats modal after a bit
         display_message(msg);
-
-    } else if (current_guess_idx >= 5) {
-        gamestate.gameover = true;
-        gamestate.won = false;
-        display_message("Damn better luck next time");
+        window.setTimeout(() => {
+            document.getElementById('statistics-modal').showModal(); 
+            draw_statistics();
+        }, 3500);
     }
-
-    // show stats modal after a bit
-    window.setTimeout(() => {
-        document.getElementById('statistics-modal').showModal(); 
-        draw_statistics();
-    }, 3500);
 
     // add to gamestate history, clear current guess, save
     gamestate.history[current_guess_idx] = gamestate.guess;
