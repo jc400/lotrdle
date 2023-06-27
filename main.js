@@ -380,6 +380,12 @@ function handle_submit() {
         display_message("Damn better luck next time");
     }
 
+    // show stats modal after a bit
+    window.setTimeout(() => {
+        document.getElementById('statistics-modal').showModal(); 
+        draw_statistics();
+    }, 3500);
+
     // add to gamestate history, clear current guess, save
     gamestate.history[current_guess_idx] = gamestate.guess;
     gamestate.guess = '';
