@@ -376,6 +376,7 @@ function handle_submit() {
 
     } else if (current_guess_idx >= 5) {
         gamestate.gameover = true;
+        gamestate.won = false;
         display_message("Damn better luck next time");
     }
 
