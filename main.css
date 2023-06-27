@@ -1,0 +1,264 @@
+@charset "UTF-8";
+
+
+/* theming */
+:root {
+    --background: #121213;
+    --text: #ffffff;
+    --darkgrey: #3a3a3c;
+    --lightgrey: #818384;
+    --green: #538d4e;
+    --yellow: #b59f3b;
+    --svgcolor: invert(100%) sepia(100%) saturate(2%) hue-rotate(219deg) brightness(103%) contrast(100%);
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        --background: #ffffff;
+        --text: #000000;
+        --darkgrey: #787c7e;
+        --lightgrey: #d3d6da;
+        --green: #6aaa64;
+        --yellow: #c9b458;
+        --svgcolor: invert(0%) sepia(49%) saturate(5629%) hue-rotate(94deg) brightness(95%) contrast(106%);
+    }
+}
+
+.yellow, #guesses .yellow {
+    background-color: var(--yellow);
+    color: #ffffff;
+    border-color: var(--yellow);
+}
+.green, #guesses .green {
+    background-color: var(--green);
+    color: #ffffff;
+    border-color: var(--green);
+}
+.darkgrey, #guesses .darkgrey {
+    background-color: var(--darkgrey);
+    color: #ffffff;
+    border-color: var(--darkgrey);
+}
+.lightgrey, #guesses .lightgrey {
+    background-color: var(--lightgrey);
+    color: var(--text);
+    border-color: var(--lightgrey);
+}
+
+@font-face {
+    font-family: librefranklin;
+    src: url('/assets/librefranklin-regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: librefranklin-bold;
+    src: url('/assets/librefranklin-extrabold.ttf') format('truetype');
+}
+* {
+    box-sizing: border-box;
+}
+html {
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+    font-family: librefranklin, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+        "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+body {
+    margin: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: librefranklin-bold, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+    margin: 0px;
+}
+
+
+/* for nav bar */
+nav {
+    width: 100%;
+    max-width: 500px;
+    height: 50px;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--darkgrey);
+    box-sizing: border-box;
+}
+nav > * {
+    flex: 1 0 1;
+}
+.iconbutton {
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+.iconbutton:hover .whitesvg {
+    filter: invert(19%) sepia(5%) saturate(296%) hue-rotate(201deg) brightness(97%) contrast(86%);
+}
+.whitesvg {
+    filter: var(--svgcolor);
+}
+
+
+/* for game */
+#message {
+    position: absolute;
+    top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.activemessage {
+    color: var(--background);
+    background-color: var(--text);
+    padding: 5px;
+    border-radius: 3px;
+}
+#game {
+    height: calc(100vh - 50px);
+    padding: 30px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#guesses {
+    border-collapse: separate;
+}
+#guesses td {
+    width: 9vw;
+    height: 9vw;
+    margin: 0.3vw;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--darkgrey);
+    font-family: librefranklin-bold, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+#guesses td.filled {
+    border-color: var(--text);
+}
+#guesses .embiggen {
+    transition-duration: 150ms;
+    transform: scale(110%) 
+}
+#guesses .turnover {
+    transition-duration: 400ms;
+    transform: rotateX(1turn);
+}
+
+#keyboard {
+    width: 100%;
+}
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+}
+.keyboard-key {
+    width: calc(100% / 15);
+    height: 45px;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 5px;
+    border: none;
+    font-family: librefranklin-bold, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+}
+.action-key {
+    width: calc(100% / 10);
+}
+
+@media (min-width: 500px) {
+    #guesses td {
+        width: 40px;
+        height: 40px;
+        margin: 2px;
+    }
+    #keyboard {
+        width: 490px;
+    }
+}
+
+/* for modal */
+dialog {
+    color: var(--text);
+    background-color: var(--background);
+    border: none;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 490px;
+}
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+}
+@media (prefers-color-scheme: dark) {
+    dialog {
+        background-color: var(--darkgrey);
+    }
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.modal-body p, .modal-body figcaption {
+    font-size: 1rem;
+    font-family: librefranklin, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    display: block;
+    text-align: left;
+}
+.modal-body img {
+    max-width: 100%;
+}
+.modal-body figure {
+    margin-left: 0;
+}
+
+
+/* for stats modal */
+#stats-items {
+    display: flex;
+    justify-content: space-between;
+}
+.stats-item {
+    padding: 5px;
+    margin: 5px;
+    flex: 1 1 0;
+    border: 1px solid var(--text);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.75rem;
+}
+.stats-item em {
+    display: block;
+    font-family: librefranklin-bold, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+    font-style: normal;
+    font-size: 1.5rem;
+    margin: 0px;
+    text-align: center;
+}
+#guess-distribution {
+    margin-top: 30px;
+}
+.guess-bar {
+    background-color: var(--green);
+    height: 30px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    font-family: librefranklin-bold, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+}

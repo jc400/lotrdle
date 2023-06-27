@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LOTRDLE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="main.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <script src="main.js"></script>
+    <script src="assets/target_dictionary.js"></script>
+    <script src="assets/full_dictionary.js"></script>
+</head>
+
+<body>
+    <nav>
+        <h1>LOTRDLE</h1>
+        <div id="controls">
+            <button 
+                id="help" 
+                name="help" 
+                class="iconbutton" 
+                onclick="document.getElementById('help-modal').showModal()"
+            >
+                <img src="assets/help-circle.svg" width="20px" class="whitesvg">
+            </button>
+            <button 
+                id="statistics" 
+                name="statistics" 
+                class="iconbutton"
+                onclick="document.getElementById('statistics-modal').showModal(); draw_statistics()"
+            >
+                <img src="assets/bar-chart-2.svg" width="20px" class="whitesvg">    
+            </button>
+            <button 
+                id="settings" 
+                name="settings" 
+                class="iconbutton"
+                onclick="document.getElementById('settings-modal').showModal()"
+            >
+                <img src="assets/settings.svg" width="20px" class="whitesvg">
+            </button>
+        </div>
+    </nav>
+
+    <div id="game">
+        <div id="message">
+        </div>
+        <table id="guesses">
+            <tbody>
+                <tr>
+                    <td id="00"></td>
+                    <td id="01"></td>
+                    <td id="02"></td>
+                    <td id="03"></td>
+                    <td id="04"></td>
+                </tr>
+                <tr>
+                    <td id="10"></td>
+                    <td id="11"></td>
+                    <td id="12"></td>
+                    <td id="13"></td>
+                    <td id="14"></td>
+                </tr>
+                <tr>
+                    <td id="20"></td>
+                    <td id="21"></td>
+                    <td id="22"></td>
+                    <td id="23"></td>
+                    <td id="24"></td>
+                </tr>
+                <tr>
+                    <td id="30"></td>
+                    <td id="31"></td>
+                    <td id="32"></td>
+                    <td id="33"></td>
+                    <td id="34"></td>
+                </tr>
+                <tr>
+                    <td id="40"></td>
+                    <td id="41"></td>
+                    <td id="42"></td>
+                    <td id="43"></td>
+                    <td id="44"></td>
+                </tr>
+                <tr>
+                    <td id="50"></td>
+                    <td id="51"></td>
+                    <td id="52"></td>
+                    <td id="53"></td>
+                    <td id="54"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="keyboard">
+            <div class="keyboard-row">
+                <button class="keyboard-key lightgrey" id="Q">Q</button>
+                <button class="keyboard-key lightgrey" id="W">W</button>
+                <button class="keyboard-key lightgrey" id="E">E</button>
+                <button class="keyboard-key lightgrey" id="R">R</button>
+                <button class="keyboard-key lightgrey" id="T">T</button>
+                <button class="keyboard-key lightgrey" id="Y">Y</button>
+                <button class="keyboard-key lightgrey" id="U">U</button>
+                <button class="keyboard-key lightgrey" id="I">I</button>
+                <button class="keyboard-key lightgrey" id="O">O</button>
+                <button class="keyboard-key lightgrey" id="P">P</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="keyboard-key lightgrey" id="A">A</button>
+                <button class="keyboard-key lightgrey" id="S">S</button>
+                <button class="keyboard-key lightgrey" id="D">D</button>
+                <button class="keyboard-key lightgrey" id="F">F</button>
+                <button class="keyboard-key lightgrey" id="G">G</button>
+                <button class="keyboard-key lightgrey" id="H">H</button>
+                <button class="keyboard-key lightgrey" id="J">J</button>
+                <button class="keyboard-key lightgrey" id="K">K</button>
+                <button class="keyboard-key lightgrey" id="L">L</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="keyboard-key action-key lightgrey" id="ENTER">
+                    <img src="assets/send.svg" width="12px" class="whitesvg">
+                </button>
+                <button class="keyboard-key lightgrey" id="Z">Z</button>
+                <button class="keyboard-key lightgrey" id="X">X</button>
+                <button class="keyboard-key lightgrey" id="C">C</button>
+                <button class="keyboard-key lightgrey" id="V">V</button>
+                <button class="keyboard-key lightgrey" id="B">B</button>
+                <button class="keyboard-key lightgrey" id="N">N</button>
+                <button class="keyboard-key lightgrey" id="M">M</button>
+                <button class="keyboard-key action-key lightgrey" id="BACKSPACE">
+                    <img src="assets/delete.svg" width="12px" class="whitesvg">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <dialog id="help-modal">
+        <form>
+            <div class="modal-header">
+                <h2>How to play</h2>
+                <button 
+                    value="cancel" 
+                    formmethod="dialog" 
+                    class="closebutton iconbutton"
+                >
+                    <img src="assets/x.svg" width="20px" class="whitesvg">
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Guess the word (from your favorite trilogy) in 6 tries.</h3>
+                <p>Each guess must be a valid 5-letter word.</p>
+                <p>The color of the tiles will change to show how close your guess was to the word.</p>
+                <h3>Examples<h3>
+                    <figure>
+                        <img src="assets/example2.png">
+                        <figcaption>F is in the word in the correct spot</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/example1.png">
+                        <figcaption>E is in the word in the wrong spot</figcaption>
+                    </figure>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="statistics-modal">
+        <form>
+            <div class="modal-header">
+                <h2>Statistics</h2>
+                <button 
+                    value="cancel" 
+                    formmethod="dialog" 
+                    class="closebutton iconbutton"
+                >
+                    <img src="assets/x.svg" width="20px" class="whitesvg">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="stats-items">
+                    <div id="stats-played" class="stats-item">
+                        <em></em>
+                        played
+                    </div>
+                    <div id="stats-win-percentage" class="stats-item">
+                        <em></em>
+                        win %
+                    </div>
+                    <div id="stats-streak" class="stats-item">
+                        <em></em>
+                        streak 
+                    </div>
+                    <div id="stats-max-streak" class="stats-item">
+                        <em></em>
+                        max streak 
+                    </div>
+                </div>
+                <div id="guess-distribution">
+                    <h3>Guess Distribution</h3>
+                    <div id="guess-bar-1" class="guess-bar">1</div>
+                    <div id="guess-bar-2" class="guess-bar">2</div>
+                    <div id="guess-bar-3" class="guess-bar">3</div>
+                    <div id="guess-bar-4" class="guess-bar">4</div>
+                    <div id="guess-bar-5" class="guess-bar">5</div>
+                    <div id="guess-bar-6" class="guess-bar">6</div>
+                </div>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="settings-modal">
+        <form action="#">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button 
+                    value="cancel" 
+                    formmethod="dialog" 
+                    class="closebutton iconbutton"
+                >
+                    <img src="assets/x.svg" width="20px" class="whitesvg">
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="clear-data">Clear all data. This will erase statistics and history.</label>
+                <button 
+                    name="clear-data" 
+                    id="clear-data"
+                    type="button"
+                    onclick="if(confirm('Are you sure?')){clear_localstorage();alert('Date cleared')}"
+                >Clear</button>
+
+            </div>
+        </form>
+    </dialog>
+
+</body>
