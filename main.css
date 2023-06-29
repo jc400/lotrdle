@@ -46,11 +46,11 @@
 
 @font-face {
     font-family: librefranklin;
-    src: url('/assets/librefranklin-regular.ttf') format('truetype');
+    src: url('assets/librefranklin-regular.ttf') format('truetype');
 }
 @font-face {
     font-family: librefranklin-bold;
-    src: url('/assets/librefranklin-extrabold.ttf') format('truetype');
+    src: url('assets/librefranklin-extrabold.ttf') format('truetype');
 }
 * {
     box-sizing: border-box;
