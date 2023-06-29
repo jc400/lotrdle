@@ -130,6 +130,13 @@ function draw_word_submit(gamestate) {
         }, c * 500);
     }
 }
+function draw_shakeno(gamestate) {
+    let guess_idx = gamestate.history.indexOf('');
+    [0,1,2,3,4].forEach(i => {
+        embiggen(document.getElementById(`${guess_idx}${i}`));
+        window.setTimeout(()=>embiggen(document.getElementById(`${guess_idx}${i}`)), 200);
+    });
+}
 function draw_letter(gamestate) {
     // find which guess we're on
     let guess_idx = gamestate.history.indexOf('');
@@ -324,6 +331,7 @@ function handle_keypress(k) {
             handle_submit();
         } else {
             // later should add little shake effect
+            draw_shakeno(gamestate);
         }
     }
 
